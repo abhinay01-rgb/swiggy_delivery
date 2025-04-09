@@ -1,0 +1,23 @@
+stages:
+  data_cleaning:
+    cmd: python src/data/data_cleaning.py
+
+  data_preparation:
+    cmd: python src/data/data_preparation.py
+    params:
+    - Data_Preparation.test_size
+    - Data_Preparation.random_state
+
+
+  data_preprocessing:
+    cmd: python src/features/data_preprocessing.py
+
+
+  train:
+    cmd: python src/models/train.py
+
+
+  evaluation:
+    cmd: python src/models/evaluation.py
+
+

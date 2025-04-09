@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delivery Time Prediction</title>
+</head>
+<body>
+    <h2>Predict Delivery Time</h2>
+
+    <form method="POST">
+        <label>Age: <input type="number" name="age" required></label><br><br>
+        <label>Ratings: <input type="number" step="0.1" name="ratings" required></label><br><br>
+        <label>Pickup Time (mins): <input type="number" name="pickup_time_minutes" required></label><br><br>
+        <label>Distance (km): <input type="number" step="0.1" name="distance" required></label><br><br>
+
+        <label>Multiple Deliveries:</label>
+        <input type="number" name="multiple_deliveries" required>
+
+        <label>Vehicle Condition:</label>
+        <input type="number" name="vehicle_condition" required>
+
+
+        <label>Weather:
+            <select name="weather">
+                <option value="Sunny">Sunny</option>
+                <option value="Rainy">Rainy</option>
+                <option value="Cloudy">Cloudy</option>
+            </select>
+        </label><br><br>
+
+        <label>Type of Order:
+            <select name="type_of_order">
+                <option value="Meal">Meal</option>
+                <option value="Snack">Snack</option>
+            </select>
+        </label><br><br>
+
+        <label>Type of Vehicle:
+            <select name="type_of_vehicle">
+                <option value="Bike">Bike</option>
+                <option value="Scooter">Scooter</option>
+            </select>
+        </label><br><br>
+
+        <label>Festival:
+            <select name="festival">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </label><br><br>
+
+        <label>City Type:
+            <select name="city_type">
+                <option value="Urban">Urban</option>
+                <option value="Semi-Urban">Semi-Urban</option>
+            </select>
+        </label><br><br>
+
+        <label>Weekend:
+            <select name="is_weekend">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </label><br><br>
+
+        <label>Order Time of Day:
+            <select name="order_time_of_day">
+                <option value="Morning">Morning</option>
+                <option value="Afternoon">Afternoon</option>
+                <option value="Evening">Evening</option>
+                <option value="Night">Night</option>
+            </select>
+        </label><br><br>
+
+        <label>Traffic:
+            <select name="traffic">
+                <option value="low">low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+                <option value="jam">jam</option>
+            </select>
+        </label><br><br>
+
+        <label>Distance Type:
+            <select name="distance_type">
+                <option value="short">short</option>
+                <option value="medium">medium</option>
+                <option value="long">long</option>
+                <option value="very_long">very_long</option>
+            </select>
+        </label><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction is not none %}
+        <h3>Estimated Delivery Time: {{ prediction }} minutes</h3>
+    {% endif %}
+</body>
+</html>
