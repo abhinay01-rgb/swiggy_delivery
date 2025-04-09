@@ -1,5 +1,5 @@
 Train:
-  model_name: "XGBoost"  # Options: XGBoost, RandomForest, LightGBM, DecisionTree
+  model_name: "LightGBM"  # Options: XGBoost, RandomForest, LightGBM, DecisionTree
 
   XGBoost:
     n_estimators: 100
