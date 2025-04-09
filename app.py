@@ -2,37 +2,19 @@ from flask import Flask, render_template, request
 import pandas as pd
 import joblib
 from pathlib import Path
-import boto3
 import os
 
 app = Flask(__name__)
-
-# === S3 CONFIG ===
-S3_BUCKET_NAME = "deliveryswiggyapp"
-MODEL_S3_KEY = "models/model.pkl"
-PREPROCESSOR_S3_KEY = "models/preprocessor.pkl"
 
 # === Local Paths ===
 LOCAL_MODEL_PATH = Path("models/model.pkl")
 LOCAL_PREPROCESSOR_PATH = Path("models/preprocessor.pkl")
 
-# Create local directory if not exists
-LOCAL_MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-# Initialize S3 client
-s3 = boto3.client("s3")
-
-def download_from_s3():
-    if not LOCAL_MODEL_PATH.exists():
-        print("Downloading model.pkl from S3...")
-        s3.download_file(S3_BUCKET_NAME, MODEL_S3_KEY, str(LOCAL_MODEL_PATH))
-
-    if not LOCAL_PREPROCESSOR_PATH.exists():
-        print("Downloading preprocessor.pkl from S3...")
-        s3.download_file(S3_BUCKET_NAME, PREPROCESSOR_S3_KEY, str(LOCAL_PREPROCESSOR_PATH))
-
-# Download files from S3 if not already present
-download_from_s3()
+# Ensure model and preprocessor exist
+if not LOCAL_MODEL_PATH.exists():
+    raise FileNotFoundError(f"❌ Model file not found at: {LOCAL_MODEL_PATH}")
+if not LOCAL_PREPROCESSOR_PATH.exists():
+    raise FileNotFoundError(f"❌ Preprocessor file not found at: {LOCAL_PREPROCESSOR_PATH}")
 
 # Load model and preprocessor
 model = joblib.load(LOCAL_MODEL_PATH)
@@ -75,4 +57,4 @@ def index():
     return render_template("index.html", prediction=prediction)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
